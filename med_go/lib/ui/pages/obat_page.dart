@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:med_go/main.dart';
 import 'package:med_go/ui/pages/home_page.dart';
 import 'package:med_go/ui/pages/order_page.dart';
+import 'package:med_go/ui/pages/pesan_page.dart';
 
 class ObatPage extends StatefulWidget {
   const ObatPage({Key? key}) : super(key: key);
@@ -11,121 +12,118 @@ class ObatPage extends StatefulWidget {
 }
 
 class _ObatPageState extends State<ObatPage> {
+  // This holds a list of fiction users
+  // You can use data fetched from a database or a server as well
+  final List<Map<String, dynamic>> _allUsers = [
+    {"nama": "Paracetamol", "jumlah": 29},
+    {"nama": "Vitamin C", "jumlah": 30},
+    {"nama": "Panadol", "jumlah": 21},
+    {"nama": "OBH Combi", "jumlah": 35},
+    {"nama": "Madu TJ", "jumlah": 15},
+    {"nama": "ParameX", "jumlah": 20},
+  ];
+
+  // This list holds the data for the list view
+  List<Map<String, dynamic>> _foundUsers = [];
+  @override
+  initState() {
+    // at the beginning, all users are shown
+    _foundUsers = _allUsers;
+    super.initState();
+  }
+
+  // This function is called whenever the text field changes
+  void _runFilter(String enteredKeyword) {
+    List<Map<String, dynamic>> results = [];
+    if (enteredKeyword.isEmpty) {
+      // if the search field is empty or only contains white-space, we'll display all users
+      results = _allUsers;
+    } else {
+      results = _allUsers
+          .where((user) =>
+              user["nama"].toLowerCase().contains(enteredKeyword.toLowerCase()))
+          .toList();
+      // we use the toLowerCase() method to make it case-insensitive
+    }
+
+    // Refresh the UI
+    setState(() {
+      _foundUsers = results;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: TextField(
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.all(20),
-              hintText: 'Cari Obat',
-              hintStyle: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20),
-            ),
-            showCursor: true,
-            cursorHeight: 20,
-          ),
-          backgroundColor: Color(0xFF5DABB0),
-          automaticallyImplyLeading: true,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (BuildContext context) => OrderPage()));
-            },
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Cari Obat'),
+        centerTitle: true,
+        backgroundColor: Color(0xFF5DABB0),
+        automaticallyImplyLeading: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (BuildContext context) => OrderPage()));
+          },
         ),
-        body: ListView(
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
           children: [
-            ListApotek(
-              gambar: './assets/banda.jpg',
-              nama: 'Apotek Kimia Farma',
-              deskripsi: 'Darussalam, Banda Aceh',
+            const SizedBox(
+              height: 20,
             ),
-            ListApotek(
-              gambar: './assets/kimia.jpg',
-              nama: 'Apotek Banda Farma',
-              deskripsi: 'Baiturahman, Banda Aceh',
+            TextField(
+              onChanged: (value) => _runFilter(value),
+              decoration: InputDecoration(
+                  labelText: "Cari Obat",
+                  hintText: "Cari Obat",
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(25.0)))),
             ),
-            ListApotek(
-              gambar: './assets/sehat.jpg',
-              nama: 'Apotek Cinta Sehat',
-              deskripsi: 'Baiturahman, Banda Aceh',
+            const SizedBox(
+              height: 20,
             ),
-            ListApotek(
-              gambar: './assets/laris.jpg',
-              nama: 'Apotek Laris 2',
-              deskripsi: 'Peunayong, Banda Aceh',
-            ),
-            ListApotek(
-              gambar: './assets/rakan.jpg',
-              nama: 'Apotek Rakan Medical',
-              deskripsi: 'Kuta Alam, Banda Aceh',
+            Expanded(
+              child: _foundUsers.isNotEmpty
+                  ? ListView.builder(
+                      itemCount: _foundUsers.length,
+                      itemBuilder: (context, index) => Card(
+                        color: Color(0xFF5DABB0),
+                        elevation: 4,
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        child: ListTile(
+                          onTap: () {
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        PesanPage()));
+                          },
+                          title: Text(
+                            _foundUsers[index]['nama'],
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            '${_foundUsers[index]["jumlah"].toString()} Kotak',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    )
+                  : const Text(
+                      'No results found',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
             ),
           ],
         ),
       ),
     );
-  }
-}
-
-class ListApotek extends StatelessWidget {
-  ListApotek(
-      {required this.gambar, required this.nama, required this.deskripsi});
-
-  final String gambar;
-  final String nama;
-  final String deskripsi;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.all(20),
-        child: InkWell(
-          splashColor: Colors.blue.withAlpha(30),
-          child: Card(
-            child: Row(
-              children: [
-                Image(
-                  image: AssetImage(gambar),
-                  width: 110,
-                  height: 110,
-                  fit: BoxFit.cover,
-                ),
-                Container(
-                  padding: EdgeInsets.all(20),
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          nama,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.left,
-                        ),
-                        Text(
-                          deskripsi,
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.left,
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          onTap: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (BuildContext context) => ObatPage()));
-          },
-        ));
   }
 }

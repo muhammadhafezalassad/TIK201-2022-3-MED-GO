@@ -13,7 +13,7 @@ class SignUpPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(
           horizontal: 30,
         ),
-        child: Column(
+        child: ListView(
           children: [
             Center(
               child: Container(
