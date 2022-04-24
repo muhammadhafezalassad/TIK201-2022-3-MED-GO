@@ -4,6 +4,7 @@ import 'package:med_go/ui/widgets/custome_button.dart';
 import 'package:med_go/main.dart';
 import 'package:med_go/ui/pages/home_page.dart';
 import 'package:med_go/ui/pages/obat_page.dart';
+import 'package:med_go/ui/pages/jumlah_obat.dart';
 
 class NotifPage extends StatefulWidget {
   const NotifPage({Key? key}) : super(key: key);
@@ -18,16 +19,17 @@ class _NotifPageState extends State<NotifPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Obat dipesan"),
+        backgroundColor: Color(0xFF5DABB0),
         automaticallyImplyLeading: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (BuildContext context) => ObatPage()));
+                builder: (BuildContext context) => JumlahPage()));
           },
         ),
       ),
-      backgroundColor: kPrimeColor,
+      backgroundColor: kWhiteColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -53,7 +55,7 @@ class _NotifPageState extends State<NotifPage> {
                   Text(
                     'Anda Telah berhasil memesan Paracetamol!',
                     textAlign: TextAlign.center,
-                    style: whiteStyle.copyWith(
+                    style: greenStyle.copyWith(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
