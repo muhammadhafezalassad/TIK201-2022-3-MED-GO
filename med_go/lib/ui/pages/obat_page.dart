@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:med_go/main.dart';
-import 'package:med_go/ui/pages/home_page.dart';
+import 'package:med_go/ui/pages/jumlah_obat.dart';
 import 'package:med_go/ui/pages/order_page.dart';
-import 'package:med_go/ui/pages/pesan_page.dart';
 
 class ObatPage extends StatefulWidget {
   const ObatPage({Key? key}) : super(key: key);
@@ -96,11 +94,11 @@ class _ObatPageState extends State<ObatPage> {
                         elevation: 4,
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         child: ListTile(
-                          onTap: () {
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        PesanPage()));
+                          onTap: () {Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => new JumlahPage()),
+                          );
                           },
                           title: Text(
                             _foundUsers[index]['nama'],
