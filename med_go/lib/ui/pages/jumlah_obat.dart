@@ -66,7 +66,7 @@ class _JumlahPageState extends State<JumlahPage> {
                     height: 40,
                   ),
                   Text(
-                    'Jumlah Obat yang ingin dipesan',
+                    'Jumlah obat yang ingin dipesan',
                     textAlign: TextAlign.center,
                     style: whiteStyle.copyWith(
                       fontSize: 15,
