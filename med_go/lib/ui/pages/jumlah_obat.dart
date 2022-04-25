@@ -20,15 +20,11 @@ class _JumlahPageState extends State<JumlahPage> {
       _counter++;
     });
   }
-<<<<<<< HEAD
-
   void _decrementCounter() {
     setState(() {
       _counter--;
     });
   }
-
-=======
   void _DecrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -39,7 +35,6 @@ class _JumlahPageState extends State<JumlahPage> {
       _counter--;
     });
   }
->>>>>>> main
   @override
   Widget build(BuildContext context) {
     return Scaffold(
