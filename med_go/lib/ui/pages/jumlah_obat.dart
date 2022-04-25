@@ -20,6 +20,7 @@ class _JumlahPageState extends State<JumlahPage> {
       _counter++;
     });
   }
+<<<<<<< HEAD
 
   void _decrementCounter() {
     setState(() {
@@ -27,6 +28,18 @@ class _JumlahPageState extends State<JumlahPage> {
     });
   }
 
+=======
+  void _DecrementCounter() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _counter--;
+    });
+  }
+>>>>>>> main
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,6 +124,7 @@ class _JumlahPageState extends State<JumlahPage> {
           ],
         ),
       ),
+<<<<<<< HEAD
       floatingActionButton: Row( 
         mainAxisAlignment: MainAxisAlignment.spaceBetween, 
         children: [
@@ -131,6 +145,29 @@ class _JumlahPageState extends State<JumlahPage> {
         ],
       ),
       //
+=======
+      floatingActionButton: Column(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+      FloatingActionButton( backgroundColor: kPrimeColor,
+        child: Icon(
+          Icons.add
+        ),
+        onPressed: () =>_incrementCounter(),
+        heroTag: null,
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      FloatingActionButton( backgroundColor: kPrimeColor,           
+        child: Icon(
+          Icons.delete,
+        ),
+        onPressed: () => _DecrementCounter(),
+        heroTag: null,
+      )
+    ]
+  )
+>>>>>>> main
     );
-  }
-}
+}}
