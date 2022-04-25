@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:med_go/shared/theme.dart';
+import 'package:med_go/ui/pages/obat2_page.dart';
 import 'package:med_go/ui/widgets/custome_button.dart';
 import 'package:med_go/main.dart';
 import 'package:med_go/ui/pages/home_page.dart';
@@ -17,12 +18,12 @@ class _JumlahPageState extends State<JumlahPage> {
   int _counter = 0;
   void _incrementCounter() {
     setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
       _counter++;
-    });
-  }
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
     });
   }
   void _DecrementCounter() {
@@ -39,14 +40,14 @@ class _JumlahPageState extends State<JumlahPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Jumlah bbat dipesan"),
+        title: Text("Jumlah Obat dipesan"),
         backgroundColor: Color(0xFF5DABB0),
         automaticallyImplyLeading: true,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (BuildContext context) => ObatPage()));
+                builder: (BuildContext context) => DatabaseObat()));
           },
         ),
       ),
@@ -74,7 +75,7 @@ class _JumlahPageState extends State<JumlahPage> {
                     height: 40,
                   ),
                   Text(
-                    'Jumlah obat yang ingin dipesan',
+                    'Jumlah Obat yang ingin dipesan',
                     textAlign: TextAlign.center,
                     style: whiteStyle.copyWith(
                       fontSize: 15,
@@ -119,5 +120,27 @@ class _JumlahPageState extends State<JumlahPage> {
           ],
         ),
       ),
+      floatingActionButton: Column(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+      FloatingActionButton( backgroundColor: kPrimeColor,
+        child: Icon(
+          Icons.add
+        ),
+        onPressed: () =>_incrementCounter(),
+        heroTag: null,
+      ),
+      SizedBox(
+        height: 10,
+      ),
+      FloatingActionButton( backgroundColor: kPrimeColor,           
+        child: Icon(
+          Icons.remove,
+        ),
+        onPressed: () => _DecrementCounter(),
+        heroTag: null,
+      )
+    ]
+  )
     );
 }}
