@@ -20,13 +20,21 @@ class _JumlahPageState extends State<JumlahPage> {
       _counter++;
     });
   }
-
   void _decrementCounter() {
     setState(() {
       _counter--;
     });
   }
-
+  void _DecrementCounter() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _counter--;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,26 +119,5 @@ class _JumlahPageState extends State<JumlahPage> {
           ],
         ),
       ),
-      floatingActionButton: Row( 
-        mainAxisAlignment: MainAxisAlignment.spaceBetween, 
-        children: [
-          FloatingActionButton(
-            onPressed: _decrementCounter,
-            tooltip: 'decrement',
-            child: const Icon(Icons.remove),
-            heroTag: null,
-            backgroundColor: Color(0xFF5DABB0),
-          ),
-          FloatingActionButton(
-            onPressed: _incrementCounter,
-            tooltip: 'increment',
-            child: const Icon(Icons.add),
-            heroTag: null,
-            backgroundColor: Color(0xFF5DABB0),
-          ),
-        ],
-      ),
-      //
     );
-  }
-}
+}}
