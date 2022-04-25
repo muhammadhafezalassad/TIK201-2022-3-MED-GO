@@ -39,7 +39,7 @@ class _JumlahPageState extends State<JumlahPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Jumlah Obat dipesan"),
+        title: Text("Jumlah bbat dipesan"),
         backgroundColor: Color(0xFF5DABB0),
         automaticallyImplyLeading: true,
         leading: IconButton(
