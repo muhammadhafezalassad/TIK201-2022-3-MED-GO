@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:med_go/shared/theme.dart';
+import 'package:med_go/ui/pages/obatAdmin_page.dart';
 import 'package:med_go/ui/widgets/custome_button.dart';
 import 'beranda.dart';
 
@@ -95,6 +96,20 @@ class SignInPage extends StatelessWidget {
                           context,
                           new MaterialPageRoute(
                               builder: (context) => new Beranda()),
+                        );
+              },
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+             CustomeButton(
+              textcolor: kWhiteColor,
+              title: 'Admin',
+              onPressed: () {
+                Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (context) => new obatAdmin()),
                         );
               },
             ),
