@@ -31,6 +31,7 @@ class _MyAppState extends State<DatabaseObat> {
         appBar: AppBar(
           title: Text('Pilih Obat'),
           centerTitle: true,
+          backgroundColor: Color(0xFF5DABB0),
           automaticallyImplyLeading: true,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
