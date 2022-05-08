@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
             ]),
           ),
           const SizedBox(
-            height: 50,
+            height: 5,
           ),
 
           Center(
@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),Text(
-                'About Us',
+                'Contact Us',
                 style: blackStyle.copyWith(fontWeight: FontWeight.bold),
               ),
         ],

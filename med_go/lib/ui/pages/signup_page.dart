@@ -1,19 +1,34 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:med_go/shared/theme.dart';
+import 'package:med_go/ui/pages/signin_page.dart';
 import 'package:med_go/ui/widgets/custome_button.dart';
 import 'beranda.dart';
+import 'user_model.dart';
 
-class SignUpPage extends StatelessWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({ Key? key }) : super(key: key);
 
   @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  final TextEditingController email = new TextEditingController();
+  final TextEditingController password = new TextEditingController();
+  final TextEditingController nama = new TextEditingController();
+  final TextEditingController nohp = new TextEditingController();
+  final TextEditingController alamat = new TextEditingController();
+  final _auth = FirebaseAuth.instance;
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return Scaffold(body: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: 30,
         ),
-        child: ListView(
+        child: Column(
           children: [
             Center(
               child: Container(
@@ -21,7 +36,7 @@ class SignUpPage extends StatelessWidget {
                 width: 276,
                 margin: const EdgeInsets.only(
                   top: 120,
-                  bottom: 120,
+                  bottom: 50,
                 ),
                 decoration: const BoxDecoration(
                   image: DecorationImage(
@@ -42,6 +57,10 @@ class SignUpPage extends StatelessWidget {
             ),
 
             TextFormField(
+              controller: nama,
+              onSaved: (value){
+                nama.text = value!;
+              },
               decoration: InputDecoration(
                 hintText: 'Nama',
                 hintStyle: greenStyle.copyWith(
@@ -61,6 +80,10 @@ class SignUpPage extends StatelessWidget {
             ),
 
             TextFormField(
+              controller: nohp,
+              onSaved: (value){
+                nohp.text = value!;
+              },
               decoration: InputDecoration(
                 hintText: 'Nomor Handphone',
                 hintStyle: greenStyle.copyWith(
@@ -80,6 +103,10 @@ class SignUpPage extends StatelessWidget {
             ),
 
             TextFormField(
+              controller: alamat,
+              onSaved: (value){
+                alamat.text = value!;
+              },
               decoration: InputDecoration(
                 hintText: 'Alamat',
                 hintStyle: greenStyle.copyWith(
@@ -101,6 +128,10 @@ class SignUpPage extends StatelessWidget {
               height: 15,
             ),
             TextFormField(
+              controller: email,
+              onSaved: (value){
+                email.text = value!;
+              },
               decoration: InputDecoration(
                 hintText: 'Email',
                 hintStyle: greenStyle.copyWith(
@@ -122,6 +153,10 @@ class SignUpPage extends StatelessWidget {
               height: 15,
             ),
             TextFormField(
+              controller: password,
+              onSaved: (value){
+                password.text = value!;
+              },
               decoration: InputDecoration(
                 hintText: 'Kata Sandi',
                 hintStyle: greenStyle.copyWith(
@@ -146,12 +181,7 @@ class SignUpPage extends StatelessWidget {
             CustomeButton(
               textcolor: kWhiteColor,
               title: 'Daftar',
-              onPressed: () {
-               Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                              builder: (context) => new Beranda()),
-                        );
+              onPressed: () {signUp(email.text, password.text);
               },
             ),
             const SizedBox(
@@ -185,6 +215,38 @@ class SignUpPage extends StatelessWidget {
           ],
         ),
       ),
+      
     );
+  }
+  void signUp(String email, String password) async {
+    await _auth
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .then((value) => {postDetailsToFirestore()})
+        .catchError((e) {
+      Fluttertoast.showToast(msg: e!.message);
+    });
+  }
+
+  postDetailsToFirestore() async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    User? user = _auth.currentUser;
+
+    UserModel userModel = UserModel();
+    userModel.email = user!.email;
+    userModel.uid = user.uid;
+    userModel.nama = nama.text;
+    userModel.nohp = nohp.text;
+    userModel.alamat = alamat.text;
+
+    await firebaseFirestore
+        .collection("users")
+        .doc(user.uid)
+        .set(userModel.toMap());
+
+    Fluttertoast.showToast(msg: "Pendaftaran Berhasil");
+    Navigator.pushAndRemoveUntil(
+        (context),
+        MaterialPageRoute(builder: (context) => const SignInPage()),
+        (route) => false);
   }
 }
