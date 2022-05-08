@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:med_go/shared/theme.dart';
-import 'package:flutter/src/painting/gradient.dart';
 import 'package:med_go/ui/pages/get_started_page.dart';
+import 'user_model.dart';
+import 'signin_page.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -10,16 +12,25 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-
+  User? user = FirebaseAuth.instance.currentUser;
+  UserModel loginUser = UserModel();
   @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loginUser = UserModel.fromMap(value.data());
+      setState(() {});
+    });
+  }
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: (){Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                                builder: (context) => new GetStartedPage ()),
-                          );
+        onPressed: (){logout(context);
         },
         child: Container(
           width: 60,
@@ -55,7 +66,7 @@ class _ProfileState extends State<Profile> {
                         backgroundColor: Colors.white,
                       ),
                       SizedBox(height: 10.0,),
-                      Text('Muhammad Hafez Al - Assad',
+                      Text('${loginUser.nama}',
                       style: TextStyle(
                         color:Colors.white,
                         fontSize: 20.0,
@@ -108,7 +119,7 @@ class _ProfileState extends State<Profile> {
                                           style: TextStyle(
                                             fontSize: 15.0,
                                           ),),
-                                        Text("Banda Aceh",
+                                        Text("${loginUser.alamat}",
                                           style: TextStyle(
                                             fontSize: 12.0,
                                             color: Colors.grey[400],
@@ -253,6 +264,13 @@ class _ProfileState extends State<Profile> {
         ],
 
       ),
+    );
+  }
+  Future<void> logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const SignInPage()),
     );
   }
 }
