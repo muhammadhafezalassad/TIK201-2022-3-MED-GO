@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:med_go/shared/theme.dart';
+import 'package:med_go/ui/pages/covid_page.dart';
+import 'package:med_go/ui/pages/cuci_page.dart';
+import 'package:med_go/ui/pages/tidur_page.dart';
 
 class TipsPage extends StatefulWidget {
   const TipsPage({Key? key}) : super(key: key);
@@ -33,7 +36,11 @@ class _TipsPageState extends State<TipsPage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
                 color: kPrimeColor,
-                onPressed: () {
+                onPressed: () {Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => new Covid()),
+                          );
                   },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -67,7 +74,11 @@ class _TipsPageState extends State<TipsPage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
                 color: kPrimeColor,
-                 onPressed: () {
+                 onPressed: () {Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => new Cuci()),
+                          );
                         },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -102,7 +113,11 @@ class _TipsPageState extends State<TipsPage> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
                 color: kPrimeColor,
-                onPressed: () {
+                onPressed: () {Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => new Tidur()),
+                          );
                           },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

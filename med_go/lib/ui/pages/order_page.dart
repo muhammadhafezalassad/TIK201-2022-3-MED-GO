@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:med_go/ui/pages/home_page.dart';
+import 'package:med_go/ui/pages/obat2_page.dart';
 import 'package:med_go/ui/pages/obat_page.dart';
+import 'beranda.dart';
 
 class OrderPage extends StatelessWidget {
   const OrderPage({Key? key}) : super(key: key);
@@ -18,8 +20,11 @@ class OrderPage extends StatelessWidget {
           automaticallyImplyLeading: true,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
-            onPressed: () {Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (BuildContext context) => HomePage()));
+            onPressed: () {Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => new Beranda()),
+                          );
             },
           ),
         ),
@@ -112,7 +117,7 @@ class ListApotek extends StatelessWidget {
             ),
           ),
           onTap: () {Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (BuildContext context) => ObatPage()));},
+                  builder: (BuildContext context) => DatabaseObat()));},
         ));
   }
 }
