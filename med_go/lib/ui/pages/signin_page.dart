@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:med_go/shared/theme.dart';
+import 'package:med_go/ui/pages/firebase/admin_page.dart';
+import 'package:med_go/ui/pages/firebase/crud_page.dart';
 import 'package:med_go/ui/pages/obatAdmin_page.dart';
 import 'package:med_go/ui/widgets/custome_button.dart';
 import 'beranda.dart';
@@ -109,7 +111,7 @@ class SignInPage extends StatelessWidget {
                 Navigator.push(
                           context,
                           new MaterialPageRoute(
-                              builder: (context) => new obatAdmin()),
+                              builder: (context) => new crudPage()),
                         );
               },
             ),
