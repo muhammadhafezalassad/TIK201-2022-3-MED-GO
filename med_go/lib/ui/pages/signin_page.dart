@@ -2,6 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:med_go/shared/theme.dart';
+import 'package:med_go/ui/pages/firebase/admin_page.dart';
+import 'package:med_go/ui/pages/firebase/crud_page.dart';
+import 'package:med_go/ui/pages/obatAdmin_page.dart';
 import 'package:med_go/ui/widgets/custome_button.dart';
 import 'beranda.dart';
 
@@ -122,6 +125,20 @@ class _SignInPageState extends State<SignInPage> {
               textcolor: kWhiteColor,
               title: 'Masuk',
               onPressed: () { signIn(email.text, password.text);
+              },
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+             CustomeButton(
+              textcolor: kWhiteColor,
+              title: 'Admin',
+              onPressed: () {
+                Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                              builder: (context) => new crudPage()),
+                        );
               },
             ),
             const SizedBox(
