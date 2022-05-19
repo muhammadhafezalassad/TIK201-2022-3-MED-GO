@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:med_go/shared/theme.dart';
 import 'package:med_go/ui/pages/firebase/admin_page.dart';
 import 'package:med_go/ui/pages/firebase/crud_page.dart';
@@ -6,13 +8,34 @@ import 'package:med_go/ui/pages/obatAdmin_page.dart';
 import 'package:med_go/ui/widgets/custome_button.dart';
 import 'beranda.dart';
 
-class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key}) : super(key: key);
+class SignInPage extends StatefulWidget {
+  const SignInPage({ Key? key }) : super(key: key);
 
   @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  final TextEditingController email = new TextEditingController();
+  final TextEditingController password = new TextEditingController();
+  final _auth = FirebaseAuth.instance;
+  void signIn(String email, String password) async {
+    await _auth
+        .signInWithEmailAndPassword(email: email, password: password)
+        .then((uid) => {
+              Fluttertoast.showToast(msg: "Login Berhasil"),
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Beranda()),
+              )
+            })
+        .catchError((e) {
+      Fluttertoast.showToast(msg: e!.message);
+    });
+  }
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    return Scaffold(body: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: 30,
         ),
@@ -44,6 +67,10 @@ class SignInPage extends StatelessWidget {
               height: 50,
             ),
             TextFormField(
+              controller: email,
+              onSaved: (value){
+                email.text = value!;
+              },
               decoration: InputDecoration(
                 hintText: 'Email',
                 hintStyle: greenStyle.copyWith(
@@ -66,6 +93,10 @@ class SignInPage extends StatelessWidget {
               height: 15,
             ),
             TextFormField(
+              controller: password,
+              onSaved: (value){
+                password.text = value!;
+              },
               decoration: InputDecoration(
                 hintText: 'Kata Sandi',
                 hintStyle: greenStyle.copyWith(
@@ -93,12 +124,7 @@ class SignInPage extends StatelessWidget {
             CustomeButton(
               textcolor: kWhiteColor,
               title: 'Masuk',
-              onPressed: () {
-                Navigator.push(
-                          context,
-                          new MaterialPageRoute(
-                              builder: (context) => new Beranda()),
-                        );
+              onPressed: () { signIn(email.text, password.text);
               },
             ),
             const SizedBox(
@@ -146,6 +172,7 @@ class SignInPage extends StatelessWidget {
           ],
         ),
       ),
+      
     );
   }
 }

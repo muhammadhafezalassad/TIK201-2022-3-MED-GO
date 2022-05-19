@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:med_go/shared/theme.dart';
+import 'package:med_go/ui/pages/beranda.dart';
 import 'package:med_go/ui/widgets/custome_button.dart';
+import 'package:med_go/ui/pages/firebase/crud_page.dart';
 
 class GetStartedPage extends StatelessWidget {
   const GetStartedPage({Key? key}) : super(key: key);
@@ -46,6 +48,30 @@ class GetStartedPage extends StatelessWidget {
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/signin', (route) => false);
               },
+              color: kWhiteColor,
+            ),
+             const SizedBox(
+              height: 10,
+            ),
+            CustomeButton(
+              width: 230,
+              title: 'Test Masuk',
+              onPressed: () {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (BuildContext context) => Beranda()));
+          },
+              color: kWhiteColor,
+            ),
+             const SizedBox(
+              height: 10,
+            ),
+            CustomeButton(
+              width: 230,
+              title: 'Test Edit Obat',
+              onPressed: () {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (BuildContext context) => crudPage()));
+          },
               color: kWhiteColor,
             ),
           ],
