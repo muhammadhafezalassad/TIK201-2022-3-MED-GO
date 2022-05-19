@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:med_go/ui/pages/home_page.dart';
 import 'package:med_go/ui/pages/obat2_page.dart';
 import 'package:med_go/ui/pages/obat_page.dart';
+import 'package:med_go/ui/pages/firebase/admin_page.dart';
+import 'package:med_go/ui/pages/firebase/ViewObat_page.dart';
 import 'beranda.dart';
 
 class OrderPage extends StatelessWidget {
@@ -117,7 +119,7 @@ class ListApotek extends StatelessWidget {
             ),
           ),
           onTap: () {Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (BuildContext context) => DatabaseObat()));},
+                  builder: (BuildContext context) => ViewObat()));},
         ));
   }
 }

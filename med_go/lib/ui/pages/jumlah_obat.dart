@@ -6,6 +6,7 @@ import 'package:med_go/main.dart';
 import 'package:med_go/ui/pages/home_page.dart';
 import 'package:med_go/ui/pages/obat_page.dart';
 import 'package:med_go/ui/pages/notifikasi_pesan.dart';
+import 'package:med_go/ui/pages/firebase/ViewObat_page.dart';
 
 class JumlahPage extends StatefulWidget {
   const JumlahPage({Key? key}) : super(key: key);
@@ -47,7 +48,7 @@ class _JumlahPageState extends State<JumlahPage> {
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (BuildContext context) => DatabaseObat()));
+                builder: (BuildContext context) => ViewObat()));
           },
         ),
       ),
