@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:med_go/ui/pages/obatAdmin_page.dart';
+import 'package:med_go/ui/pages/admin/berandaAdmin_page.dart';
+import 'package:med_go/ui/pages/firebase/ViewObat_page.dart';
 
 
 class EditPage extends StatefulWidget {

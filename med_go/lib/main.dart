@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:med_go/ui/pages/admin/signinAdmin_page.dart';
+import 'package:med_go/ui/pages/admin/signupAdmin_page.dart';
 import 'package:med_go/ui/pages/get_started_page.dart';
 import 'package:med_go/ui/pages/home_page.dart';
 import 'package:med_go/ui/pages/order_page.dart';
@@ -20,6 +22,8 @@ class MyApp extends StatelessWidget {
         '/signin': (context) => const SignInPage(),
         '/signup': (context) => const SignUpPage(),
         '/home': (context) => const HomePage(),
-        '/order':(context) => const OrderPage()
+        '/order':(context) => const OrderPage(),
+        '/signinadmin': (context) => const SignInAdminPage(),
+        '/signupadmin': (context) => const SignUpAdminPage(),
       },
     );}}
