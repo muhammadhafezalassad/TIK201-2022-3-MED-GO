@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:med_go/shared/theme.dart';
-import 'package:med_go/ui/pages/admin/signinAdmin_page.dart';
-import 'package:med_go/ui/pages/admin/signupAdmin_page.dart';
+import 'package:med_go/ui/pages/admin/account_page.dart';
+import 'package:med_go/ui/pages/admin/edit_page.dart';
 import 'package:med_go/ui/pages/beranda.dart';
 import 'package:med_go/ui/widgets/custome_button.dart';
 import 'package:med_go/ui/pages/firebase/crud_page.dart';
+import 'package:med_go/ui/pages/firebase/ViewObat_page.dart';
 
-class GetStartedPage extends StatelessWidget {
-  const GetStartedPage({Key? key}) : super(key: key);
+class berandaAdmin extends StatelessWidget {
+  const berandaAdmin({Key? key}) : super(key: key);
+
+  get index => null;
+
+  get list => null;
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +38,12 @@ class GetStartedPage extends StatelessWidget {
             ),
             CustomeButton(
               width: 230,
-              title: 'Daftar Sebagai User',
+              title: 'Edit Obat',
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/signup', (route) => false);
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(builder: (context) => new crudPage()),
+                );
               },
               color: kWhiteColor,
             ),
@@ -45,11 +52,8 @@ class GetStartedPage extends StatelessWidget {
             ),
             CustomeButton(
               width: 230,
-              title: 'Masuk Sebagai User',
-              onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/signin', (route) => false);
-              },
+              title: 'Notifikasi',
+              onPressed: () {},
               color: kWhiteColor,
             ),
             const SizedBox(
@@ -57,22 +61,13 @@ class GetStartedPage extends StatelessWidget {
             ),
             CustomeButton(
               width: 230,
-              title: 'Masuk Sebagai Admin',
+              title: 'Profil',
               onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => SignInAdminPage()));
-              },
-              color: kWhiteColor,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            CustomeButton(
-              width: 230,
-              title: 'Daftar Sebagai Admin',
-              onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => SignUpAdminPage()));
+                Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => new ProfileAdmin()),
+                );
               },
               color: kWhiteColor,
             ),
