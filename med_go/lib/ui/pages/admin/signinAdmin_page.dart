@@ -2,17 +2,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:med_go/shared/theme.dart';
+import 'package:med_go/ui/pages/admin/berandaAdmin_page.dart';
+import 'package:med_go/ui/pages/firebase/admin_page.dart';
+import 'package:med_go/ui/pages/firebase/crud_page.dart';
+import 'package:med_go/ui/pages/obatAdmin_page.dart';
 import 'package:med_go/ui/widgets/custome_button.dart';
-import 'beranda.dart';
 
-class SignInPage extends StatefulWidget {
-  const SignInPage({ Key? key }) : super(key: key);
+
+class SignInAdminPage extends StatefulWidget {
+  const SignInAdminPage({ Key? key }) : super(key: key);
 
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  State<SignInAdminPage> createState() => _SignInPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _SignInPageState extends State<SignInAdminPage> {
   final TextEditingController email = new TextEditingController();
   final TextEditingController password = new TextEditingController();
   final _auth = FirebaseAuth.instance;
@@ -23,7 +27,7 @@ class _SignInPageState extends State<SignInPage> {
               Fluttertoast.showToast(msg: "Login Berhasil"),
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Beranda()),
+                MaterialPageRoute(builder: (context) => const berandaAdmin()),
               )
             })
         .catchError((e) {
@@ -155,7 +159,7 @@ class _SignInPageState extends State<SignInPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/signup');
+                    Navigator.pushNamed(context, '/signupadmin');
                   },
                   child: Text(
                     'Daftar Disini',
