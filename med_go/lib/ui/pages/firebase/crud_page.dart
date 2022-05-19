@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _stockController = TextEditingController();
 
   final CollectionReference _productss =
-      FirebaseFirestore.instance.collection('users');
+      FirebaseFirestore.instance.collection('items');
 
   // This function is triggered when the floatting button or one of the edit buttons is pressed
   // Adding a product if no documentSnapshot is passed
