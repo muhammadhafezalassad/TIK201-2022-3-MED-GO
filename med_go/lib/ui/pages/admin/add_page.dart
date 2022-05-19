@@ -47,8 +47,7 @@ class _EditPageState extends State<AddPage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.teal,
-          title: Text(editMode ? 'Update' : 'Tambah Obat'),
+          title: Text(editMode ? 'Update' : 'Add Data'),
           centerTitle: true,
           automaticallyImplyLeading: true,
           leading: IconButton(
@@ -92,7 +91,6 @@ class _EditPageState extends State<AddPage> {
             Padding(
               padding: EdgeInsets.all(8),
               child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.teal),
                   onPressed: () {
                     setState(
                       () {
