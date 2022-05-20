@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:med_go/shared/theme.dart';
+import 'package:med_go/ui/pages/notifikasi_page.dart';
 import 'home_page.dart';
 import 'notif_page.dart';
 import 'account_page.dart';
@@ -19,7 +20,7 @@ class _BerandaState extends State<Beranda> {
   static List<Widget> pages = <Widget>[
     const Profile(),
     const HomePage(),
-    const NotifPage(),
+    const NotifikasiObat(),
   ];
 
 // 9
@@ -81,9 +82,9 @@ class _BerandaState extends State<Beranda> {
                   ),
                   const BottomNavigationBarItem(
                     icon: ImageIcon(
-                      AssetImage('assets/pesan.png'),
+                      AssetImage('assets/history.png'),
                     ),
-                    label: 'Pesan',
+                    label: 'History',
                   ),
                 ],
               ),

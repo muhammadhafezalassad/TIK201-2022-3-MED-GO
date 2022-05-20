@@ -3,13 +3,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:med_go/shared/theme.dart';
 import 'package:med_go/ui/pages/admin/user_model.dart';
+import 'package:med_go/ui/pages/beranda.dart';
 import 'package:med_go/ui/pages/obat_model.dart';
+import 'package:med_go/ui/widgets/custome_button.dart';
 import 'home_page.dart';
 import 'notif_page.dart';
 import 'account_page.dart';
 
 class NotifikasiObat extends StatefulWidget {
-  NotifikasiObat({Key? key}) : super(key: key);
+  const NotifikasiObat({Key? key}) : super(key: key);
 
   @override
   State<NotifikasiObat> createState() => _NotifikasiObatState();
@@ -36,8 +38,17 @@ class _NotifikasiObatState extends State<NotifikasiObat> {
     return Scaffold(
       backgroundColor: kPrimeColor,
       appBar: AppBar(
-        title: Text("Obat"),
+        title: Text("Riwayat Pemesanan"),
         backgroundColor : kPrimeColor,
+         leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => new Beranda()),
+                          );
+            },
+          ),
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
@@ -106,8 +117,20 @@ class _NotifikasiObatState extends State<NotifikasiObat> {
                     ),
                     ],)
                   ),
+                  SizedBox(height:50),
+              CustomeButton(
+              width: 230,
+              title: 'Batalkan Pemesanan',
+              onPressed: () {
+                FirebaseFirestore.instance.collection('obatpesan').doc(user!.uid).delete();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => Beranda()));
+              },
+              color: kWhiteColor,
+            ),
                 ],
               ),
+            
             ),
           ],
         ),
