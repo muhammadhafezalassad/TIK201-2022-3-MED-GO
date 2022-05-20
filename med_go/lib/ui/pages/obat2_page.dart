@@ -70,10 +70,10 @@ class _MyAppState extends State<DatabaseObat> {
                               ),
                             ),
                             onTap: () {
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          JumlahPage()));
+                             // Navigator.of(context).pushReplacement(
+                               //   MaterialPageRoute(
+                                 //     builder: (BuildContext context) =>
+                                   //       JumlahPage()));
                             },
                           ),
                         );

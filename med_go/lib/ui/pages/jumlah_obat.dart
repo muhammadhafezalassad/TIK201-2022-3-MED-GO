@@ -1,146 +1,198 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:med_go/shared/theme.dart';
-import 'package:med_go/ui/pages/obat2_page.dart';
-import 'package:med_go/ui/widgets/custome_button.dart';
-import 'package:med_go/main.dart';
-import 'package:med_go/ui/pages/home_page.dart';
-import 'package:med_go/ui/pages/obat_page.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:med_go/ui/pages/admin/berandaAdmin_page.dart';
+import 'package:med_go/ui/pages/admin/user_model.dart';
+import 'package:med_go/ui/pages/firebase/ViewObat_page.dart';
+import 'package:med_go/ui/pages/notifikasi_page.dart';
 import 'package:med_go/ui/pages/notifikasi_pesan.dart';
 
-class JumlahPage extends StatefulWidget {
-  const JumlahPage({Key? key}) : super(key: key);
+class JumlahObatFix extends StatefulWidget {
+  const JumlahObatFix({Key? key}) : super(key: key);
 
   @override
-  State<JumlahPage> createState() => _JumlahPageState();
+  State<JumlahObatFix> createState() => _JumlahObatFixState();
 }
 
-class _JumlahPageState extends State<JumlahPage> {
-  int _counter = 0;
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+class _JumlahObatFixState extends State<JumlahObatFix> {
+  User? user = FirebaseAuth.instance.currentUser;
+  UserModel loginUser = UserModel();
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loginUser = UserModel.fromMap(value.data());
+      setState(() {});
     });
   }
-  void _DecrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter--;
-    });
-  }
+
+  TextEditingController noRM = new TextEditingController();
+  TextEditingController dataRM = new TextEditingController();
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Jumlah Obat dipesan"),
-        backgroundColor: Color(0xFF5DABB0),
-        automaticallyImplyLeading: true,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (BuildContext context) => DatabaseObat()));
-          },
-        ),
-      ),
-      backgroundColor: kWhiteColor,
-      body: SafeArea(
+      body: Container(
         child: Column(
           children: [
-            Center(
-              child: Container(
-                height: 256,
-                width: 260,
-                margin: const EdgeInsets.only(top: 100),
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/panadol.png'),
-                  ),
-                ),
-              ),
-            ),
             Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              margin: const EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    height: 40,
-                  ),
-                  Text(
-                    'Jumlah Obat yang ingin dipesan',
-                    textAlign: TextAlign.center,
-                    style: whiteStyle.copyWith(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
+                    height: 60,
+                    width: 60,
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context, 
+                          new MaterialPageRoute(
+                              builder: (context) => new ViewObat()),
+                        );
+                      },
+                      icon: Image(image: AssetImage('assets/back.png')),
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 150,
+                    width: 150,
+                    child: Image(image: AssetImage('assets/title.png')),
                   ),
                 ],
               ),
             ),
-            Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Text(
-                    'Tambah Obat',
-                  ),
-                  Text(
-                    '$_counter',
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
+            SizedBox(
+              height: 30,
+            ),
+            Column(
+              children: [
+                Image(image: AssetImage('assets/user.png')),
+                Text(
+                  '',
+                  style: TextStyle(
+                      fontFamily: 'PoppinsRegular',
+                      fontSize: 14,
+                      color: Color(0xff000000)),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 300,
+                      padding: new EdgeInsets.only(
+                        right: 10.0,
+                        left: 10,
+                      ),
+                      child: TextFormField(
+                        controller: noRM,
+                        onSaved: (value) {
+                          noRM.text = value!;
+                        },
+                        decoration: InputDecoration(
+                          //fillColor: Color(0xffF1F0F5),
+                          //filled: true,
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                                color: Color(0xff989898), width: 2.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                                color: Color(0xff989898), width: 2.0),
+                          ),
+                          labelText: 'Nama Obat',
+                          labelStyle: TextStyle(
+                              color: Color(0xff989898),
+                              fontFamily: 'PoppinsRegular',
+                              fontSize: 12),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Column(
+                  children: [
+                    Container(
+                      width: 300,
+                      padding: new EdgeInsets.only(
+                        right: 10.0,
+                        left: 10,
+                      ),
+                      child: TextFormField(
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 1,
+                        controller: dataRM,
+                        onSaved: (value) {
+                          dataRM.text = value!;
+                        },
+                        decoration: InputDecoration(
+                          //fillColor: Color(0xffF1F0F5),
+                          //filled: true,
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                                color: Color(0xff989898), width: 2.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: BorderSide(
+                                color: Color(0xff989898), width: 2.0),
+                          ),
+                          labelText: 'Jumlah',
+                          labelStyle: TextStyle(
+                              color: Color(0xff989898),
+                              fontFamily: 'PoppinsRegular',
+                              fontSize: 12),
+                        ),
+                      ),
+                    ),
                 ],
-              ),
-            ),
-            CustomeButton(
-              width: 180,
-              textcolor: kWhiteColor,
-              title: 'Pesan',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  new MaterialPageRoute(builder: (context) => new NotifPage()),
-                );
-              },
-              color: kPrimeColor,
-            ),
-            const SizedBox(
-              height: 15,
-            ),
+          
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  child: SizedBox(
+                    height: 100,
+                    width: 150,
+                    child: IconButton(
+                      onPressed: () {
+                        filter(noRM.text, dataRM.text);
+                        Navigator.push(
+                          context, 
+                          new MaterialPageRoute(
+                              builder: (context) => new NotifikasiObat()),
+                        );
+                      },
+                      icon: Image(image: AssetImage('assets/buy.png')),
+                      iconSize: 150,
+                    ),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
-      floatingActionButton: Column(
-    mainAxisAlignment: MainAxisAlignment.end,
-    children: [
-      FloatingActionButton( backgroundColor: kPrimeColor,
-        child: Icon(
-          Icons.add
-        ),
-        onPressed: () =>_incrementCounter(),
-        heroTag: null,
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      FloatingActionButton( backgroundColor: kPrimeColor,           
-        child: Icon(
-          Icons.remove,
-        ),
-        onPressed: () => _DecrementCounter(),
-        heroTag: null,
-      )
-    ]
-  )
     );
-}}
+  }
+
+  void filter(String rekammedis, String dataRMpasien) async {
+    final hasil = await FirebaseFirestore.instance.collection('obatpesan');
+    Map<String, String> dataRMupdate = {"dataRM": dataRMpasien};
+    hasil.doc(user!.uid).set({"namaobat":rekammedis,"stock":dataRMpasien,"nama":loginUser.nama});
+  }
+}

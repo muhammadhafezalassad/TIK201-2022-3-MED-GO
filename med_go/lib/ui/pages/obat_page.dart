@@ -94,11 +94,11 @@ class _ObatPageState extends State<ObatPage> {
                         elevation: 4,
                         margin: const EdgeInsets.symmetric(vertical: 10),
                         child: ListTile(
-                          onTap: () {Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                                builder: (context) => new JumlahPage()),
-                          );
+                          onTap: () {//Navigator.push(
+                            //context,
+                            //new MaterialPageRoute(
+                               // builder: (context) => new JumlahPage()),
+                          //);
                           },
                           title: Text(
                             _foundUsers[index]['nama'],

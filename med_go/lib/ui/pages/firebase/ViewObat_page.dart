@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:flutter/services.dart";
+import 'package:med_go/shared/theme.dart';
 import 'package:med_go/ui/pages/jumlah_obat.dart';
 import 'package:med_go/ui/pages/order_page.dart';
 
@@ -126,7 +127,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Pilih Obat'),
-        backgroundColor: Colors.teal,
+        backgroundColor: kPrimeColor,
         automaticallyImplyLeading: true,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
@@ -153,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                          JumlahPage()));
+                                          JumlahObatFix()));
                             },
                     title: Text(documentSnapshot['name']),
                     subtitle: Text("Stock : ${documentSnapshot['stock'].toString()}"),
@@ -190,6 +191,8 @@ class _HomePageState extends State<HomePage> {
       //   onPressed: () => _createOrUpdate(),
       //   child: const Icon(Icons.add),
       // ),
+    
     );
+  
   }
 }
