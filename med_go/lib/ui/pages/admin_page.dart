@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:med_go/shared/theme.dart';
 import 'package:med_go/ui/pages/admin/signinAdmin_page.dart';
 import 'package:med_go/ui/pages/admin/signupAdmin_page.dart';
-import 'package:med_go/ui/pages/admin_page.dart';
 import 'package:med_go/ui/pages/beranda.dart';
 import 'package:med_go/ui/widgets/custome_button.dart';
 
-class GetStartedPage extends StatelessWidget {
-  const GetStartedPage({Key? key}) : super(key: key);
+class Admin extends StatelessWidget {
+  const Admin({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,39 +32,24 @@ class GetStartedPage extends StatelessWidget {
             ),
             CustomeButton(
               width: 230,
-              title: 'Daftar Sebagai User',
-              onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/signup', (route) => false);
-              },
-              color: kWhiteColor,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            CustomeButton(
-              width: 230,
-              title: 'Masuk Sebagai User',
-              onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/signin', (route) => false);
-              },
-              color: kWhiteColor,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            CustomeButton(
-              width: 230,
-              title: 'Admin',
+              title: 'Daftar Sebagai Admin',
               onPressed: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => Admin()));
+                    builder: (BuildContext context) => SignUpAdminPage()));
               },
               color: kWhiteColor,
             ),
             const SizedBox(
               height: 10,
+            ),
+            CustomeButton(
+              width: 230,
+              title: 'Masuk Sebagai Admin',
+              onPressed: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => SignInAdminPage()));
+              },
+              color: kWhiteColor,
             ),
           ],
         ),
