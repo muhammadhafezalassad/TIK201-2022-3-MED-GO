@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:med_go/shared/theme.dart';
 import 'package:med_go/ui/pages/admin/account_page.dart';
 import 'package:med_go/ui/pages/admin/edit_page.dart';
+import 'package:med_go/ui/pages/antrian_page.dart';
 import 'package:med_go/ui/pages/beranda.dart';
 import 'package:med_go/ui/widgets/custome_button.dart';
 import 'package:med_go/ui/pages/firebase/crud_page.dart';
@@ -53,7 +54,11 @@ class berandaAdmin extends StatelessWidget {
             CustomeButton(
               width: 230,
               title: 'Notifikasi',
-              onPressed: () {},
+              onPressed: () {Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => new Antrian()),
+                );},
               color: kWhiteColor,
             ),
             const SizedBox(

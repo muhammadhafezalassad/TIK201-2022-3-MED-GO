@@ -19,7 +19,7 @@ class _BerandaState extends State<Beranda> {
   static List<Widget> pages = <Widget>[
     const Profile(),
     const HomePage(),
-    const NotifikasiPage(),
+    const NotifPage(),
   ];
 
 // 9
