@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -194,5 +196,7 @@ class _JumlahObatFixState extends State<JumlahObatFix> {
     final hasil = await FirebaseFirestore.instance.collection('obatpesan');
     Map<String, String> dataRMupdate = {"dataRM": dataRMpasien};
     hasil.doc(user!.uid).set({"namaobat":rekammedis,"stock":dataRMpasien,"nama":loginUser.nama});
+var i = Random().nextInt(100);
+    FirebaseFirestore.instance.collection(user!.uid).doc(i.toString()).set({"namaobat":rekammedis,"stock":dataRMpasien,"nama":loginUser.nama});
   }
 }
