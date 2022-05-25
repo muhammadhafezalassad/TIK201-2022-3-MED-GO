@@ -24,8 +24,8 @@ class _NotifPageState extends State<NotifPage> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (BuildContext context) => JumlahPage()));
+            //Navigator.of(context).pushReplacement(MaterialPageRoute(
+               // builder: (BuildContext context) => JumlahPage()));
           },
         ),
       ),

@@ -8,6 +8,7 @@ import 'package:med_go/ui/pages/order_page.dart';
 import 'package:med_go/ui/pages/signin_page.dart';
 import 'package:med_go/ui/pages/signup_page.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

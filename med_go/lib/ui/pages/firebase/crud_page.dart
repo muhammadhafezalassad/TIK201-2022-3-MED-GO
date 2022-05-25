@@ -85,13 +85,13 @@ class _HomePageState extends State<HomePage> {
                     if (name != null && stock != null) {
                       if (action == 'create') {
                         // Persist a new product to Firestore
-                        await _productss.add({"name": name, "stock": stock});
+                        await _productss.doc(name).set({"name": name, "stock": stock});
                       }
 
                       if (action == 'update') {
                         // Update the product
                         await _productss
-                            .doc(documentSnapshot!.id)
+                            .doc(name)
                             .update({"name": name, "stock": stock});
                       }
 
