@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:med_go/shared/theme.dart';
 import 'package:med_go/ui/pages/admin/user_model.dart';
 import 'package:med_go/ui/pages/beranda.dart';
+import 'package:med_go/ui/pages/firebase/riwayatPesan_page.dart';
 import 'package:med_go/ui/pages/obat_model.dart';
 import 'package:med_go/ui/widgets/custome_button.dart';
 import 'home_page.dart';
@@ -33,22 +34,23 @@ class _NotifikasiObatState extends State<NotifikasiObat> {
       setState(() {});
     });
   }
-   @override
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kPrimeColor,
       appBar: AppBar(
         title: Text("Riwayat Pemesanan"),
-        backgroundColor : kPrimeColor,
-         leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                                builder: (context) => new Beranda()),
-                          );
-            },
-          ),
+        backgroundColor: kPrimeColor,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              new MaterialPageRoute(builder: (context) => new Beranda()),
+            );
+          },
+        ),
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
@@ -91,46 +93,63 @@ class _NotifikasiObatState extends State<NotifikasiObat> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 30),
-                    child: Column(children: [Text(
-                      'Nama Pemesan : ${obat.nama}',
-                      style: blackStyle.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.start,
-                    ),Text(
-                      'Nama Obat : ${obat.namaobat}',
-                      style: blackStyle.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                    Text(
-                      'Jumlah Obat : ${obat.stock}',
-                      style: blackStyle.copyWith(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                    ],)
+                      padding: const EdgeInsets.only(top: 30),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Nama Pemesan : ${obat.nama}',
+                            style: blackStyle.copyWith(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            textAlign: TextAlign.start,
+                          ),
+                          Text(
+                            'Nama Obat : ${obat.namaobat}',
+                            style: blackStyle.copyWith(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            textAlign: TextAlign.start,
+                          ),
+                          Text(
+                            'Jumlah Obat : ${obat.stock}',
+                            style: blackStyle.copyWith(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            textAlign: TextAlign.start,
+                          ),
+                        ],
+                      )),
+                  SizedBox(height: 50),
+                  CustomeButton(
+                    width: 230,
+                    title: 'Batalkan Pemesanan',
+                    onPressed: () {
+                      FirebaseFirestore.instance
+                          .collection('obatpesan')
+                          .doc(user!.uid)
+                          .delete();
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (BuildContext context) => Beranda()));
+                    },
+                    color: kWhiteColor,
                   ),
-                  SizedBox(height:50),
-              CustomeButton(
-              width: 230,
-              title: 'Batalkan Pemesanan',
-              onPressed: () {
-                FirebaseFirestore.instance.collection('obatpesan').doc(user!.uid).delete();
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => Beranda()));
-              },
-              color: kWhiteColor,
-            ),
+                  CustomeButton(
+                    width: 230,
+                    title: 'Riwayat',
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (BuildContext context) => riwayatPesan()));
+                    },
+                    color: kWhiteColor,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                 ],
               ),
-            
             ),
           ],
         ),
@@ -139,11 +158,11 @@ class _NotifikasiObatState extends State<NotifikasiObat> {
   }
   //@override
   //Widget build(BuildContext context) {
-    //return Container(
-      //child: Row(
-        //children: [
-          //Text('${obat.nama}')
-        //],
-      //),
-    //);
-  }
+  //return Container(
+  //child: Row(
+  //children: [
+  //Text('${obat.nama}')
+  //],
+  //),
+  //);
+}
